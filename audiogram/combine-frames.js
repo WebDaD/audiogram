@@ -1,3 +1,4 @@
+var myMaxBuffer = 1024 * 1024 * 1024 //bytes to megabytes
 var exec = require("child_process").exec;
 
 function combineFrames(options, cb) {
@@ -6,7 +7,7 @@ function combineFrames(options, cb) {
   // Some old versions of ffmpeg require -strict for the aac codec
   var cmd = "ffmpeg -r " + options.framesPerSecond + " -i \"" + options.framePath + "\" -i \"" + options.audioPath + "\" -c:v libx264 -c:a aac -strict experimental -shortest -pix_fmt yuv420p \"" + options.videoPath + "\"";
 
-  exec(cmd, cb);
+  exec(cmd,{maxBuffer: myMaxBuffer}, cb);
 
 }
 

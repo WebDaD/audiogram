@@ -1,3 +1,4 @@
+var myMaxBuffer = 1024 * 1024 * 1024 //bytes to megabytes
 var exec = require("child_process").exec,
     getDuration = require("./duration.js");
 
@@ -19,7 +20,7 @@ function trimAudio(options, cb) {
 
   var cmd = "ffmpeg -i \"" + options.origin + "\" -ss " + (options.startTime || 0) + " -t " + (options.endTime - options.startTime) + " -acodec libmp3lame -b:a 128k \"" + options.destination + "\"";
 
-  exec(cmd, cb);
+  exec(cmd,{maxBuffer: myMaxBuffer}, cb);
 
 }
 
